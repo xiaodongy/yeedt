@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+RewriteEngine On
+DirectoryIndex shouYe.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ shouYe.php/$1 [PT,L]

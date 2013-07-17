@@ -1,0 +1,7 @@
+服务器 k.ilangnet.com/10.0.6.78
+ftp用户 kilangnet
+密码：wm5n3v8
+
+http://blog.ilangnet.com/phpmyadmin
+mysql:kilangnet
+密码： p3v3c7m6
