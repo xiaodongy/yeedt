@@ -1,109 +1,75 @@
 <?php
-/* @var $this ForgetPasswordController */
-/* @var $model ForgetPassword */
-/* @var $form CActiveForm */
+$this->pageTitle=Yii::app()->name . ' - 找回密码';
+$this->breadcrumbs=array(
+	'用户找回密码',
+);
 ?>
+<link type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/default/others.css" rel="stylesheet">
+
+    <div id="bd" class="support-des others">
+        <div class="bd-border">
+            <div class="bd-padding">
+                <div class="bd-inner-border">
+                    <div class="bd-content">
+
+               <!--主体 开始-->
+                    <div class="main1">
+	<table border="0" align="center" cellpadding="0" cellspacing="0">
+		<tr><td>
+			<div class="top_text" style="padding:0;margin-top:30px">
+				<div class="top_left"></div>
+				<div class="top_middle warn_icon">
+                    提示：如果你已经记起密码，请先直接 <?php echo CHtml::link("登录",array('/path/login')); ?>
+				</div>
+	    		<div class="top_right"></div>
+    		</div>
+    	</td></tr>
+	</table>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'forget-password-forgetPassword-form',
 	'enableAjaxValidation'=>false,
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->textField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'roles'); ?>
-		<?php echo $form->textField($model,'roles'); ?>
-		<?php echo $form->error($model,'roles'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'join_date'); ?>
-		<?php echo $form->textField($model,'join_date'); ?>
-		<?php echo $form->error($model,'join_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_verify'); ?>
-		<?php echo $form->textField($model,'is_verify'); ?>
-		<?php echo $form->error($model,'is_verify'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name'); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone'); ?>
-		<?php echo $form->error($model,'phone'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'receive_email'); ?>
-		<?php echo $form->textField($model,'receive_email'); ?>
-		<?php echo $form->error($model,'receive_email'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ip_attribution'); ?>
-		<?php echo $form->textField($model,'ip_attribution'); ?>
-		<?php echo $form->error($model,'ip_attribution'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'qq'); ?>
-		<?php echo $form->textField($model,'qq'); ?>
-		<?php echo $form->error($model,'qq'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ip'); ?>
-		<?php echo $form->textField($model,'ip'); ?>
-		<?php echo $form->error($model,'ip'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'balance'); ?>
-		<?php echo $form->textField($model,'balance'); ?>
-		<?php echo $form->error($model,'balance'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'experience'); ?>
-		<?php echo $form->textField($model,'experience'); ?>
-		<?php echo $form->error($model,'experience'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'consumer_state'); ?>
-		<?php echo $form->textField($model,'consumer_state'); ?>
-		<?php echo $form->error($model,'consumer_state'); ?>
-	</div>
 
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
-	</div>
+		<ul class="main_form">  
+			<li>
+ 				<div class="fm_left"><?php echo $form->labelEx($model,'email'); ?></div>
+				<div class="fm_right">
+                	<table>
+                    	<tr><td>
+                        	<span class="suggest_box">
+                            	<?php echo $form->textField($model,'email',array("class"=>"regForm_input")); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?php echo $form->error($model,'email'); ?>
+					    </td></tr>
+                     </table>
+                     <div class="f_s_12 clear">
+                     	<div class="f_s_12 c_8A8A8A clear" id="email_name_r_info">输入您的注册邮箱地址，获取密码重置邮件，根据邮件中指引重置密码。</div>
+					</div>
+				</div>
+			</li>
+
+            <li class="subArea">
+                <?php echo CHtml::button('重置密码', array('submit' => array('path/forgetPassword'),"class"=>"clog-js control-btn")); ?>
+            </li>
+        </ul>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+            <!--主体 结束-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

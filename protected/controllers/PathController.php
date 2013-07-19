@@ -634,10 +634,14 @@ class PathController extends Controller
 	        $model->attributes=$_POST['ForgetPassword'];
 	        if($model->validate())
 	        {
-	            // form inputs are valid, do something here
-	            return;
+                $this->redirect(array('path/passwordSent'));
 	        }
 	    }
 	    $this->render('forgetPassword',array('model'=>$model));
 	}
+
+    public function actionPasswordSent()
+    {
+        $this->render('passwordSent');
+    }
 }
