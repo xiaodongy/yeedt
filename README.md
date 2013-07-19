@@ -6,4 +6,4 @@ yeedt
 cd ~/Sites
 
 
-  git://github.com/scottymoon/vim.git yeedt
+  git://github.com/scottymoon/yeedt.git yeedt
