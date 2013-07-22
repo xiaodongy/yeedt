@@ -48,7 +48,7 @@ class UserController extends Controller
                 'roles'=>array('member'),
 			),
 			array('allow',
-				'actions'=>array('orderFast','orderFile','chargeAdmin','orderResult','fastEdit','download','downloadTDocument','checkRates','upload','view','uploadDocument'),
+				'actions'=>array('orderFast','orderFile','chargeAdmin','orderResult','orderComments','fastEdit','download','downloadTDocument','checkRates','upload','view','uploadDocument'),
 				'roles'=>array('interpreter','operator'),
 			),
             array('allow',
@@ -723,6 +723,18 @@ class UserController extends Controller
             $model->attributes = $_GET['Charge'];
 
         $this->render('chargeAdmin', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionOrderComments()
+    {
+        $model = new Comment('search');
+
+        if(isset($_GET['Comment']))
+            $model->attributes = $_GET['Comment'];
+
+        $this->render('orderComments', array(
             'model' => $model,
         ));
     }

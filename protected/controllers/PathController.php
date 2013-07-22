@@ -62,8 +62,10 @@ class PathController extends Controller
     public function actionFast($orderId="")
     {
         $model=new FastForm;
-        if(isset(Yii::app()->session['original']))
+        if(isset(Yii::app()->session['original']) && Yii::app()->session['original'])
             $model->original = Yii::app()->session['original'];
+        if(isset($_COOKIE['original']) && $_COOKIE['original'] != "")
+            $model->original = $_COOKIE['original'];
         if(!Yii::app()->user->isGuest) {
         	$model->phone = User::model()->findByPk(Yii::app()->user->id)->phone;
         	if(!empty($orderId)){
@@ -84,6 +86,7 @@ class PathController extends Controller
         {
             $model->attributes=$_POST['FastForm'];
             Yii::app()->session->add('original',$model->original);
+            setcookie('original', $model->original);
             if($model->validate())
             {
                 if(Yii::app()->user->isGuest){
@@ -156,16 +159,22 @@ class PathController extends Controller
                 }
                 $demand = !empty($model->demand) ? '其他需求：' . $model->demand : '';
 		        if(!empty(Yii::app()->params['operatorPhone'])){
-			        #RegForm::sendSms(Yii::app()->params['operatorPhone'],'【译点通】有新的文档订单，订单号：' . $model->id . '。请即时确认！' . $demand);
+			        RegForm::sendSms(Yii::app()->params['operatorPhone'],'【译点通】有新的文档订单，订单号：' . $model->id . '。请即时确认！' . $demand);
 		        }
 		        if(!empty(Yii::app()->params['interpreterPhone'])){
-			        #RegForm::sendSms(Yii::app()->params['interpreterPhone'],'【译点通】有新的文档订单，订单号：' . $model->id . '。请即时确认！' . $demand);
+			        RegForm::sendSms(Yii::app()->params['interpreterPhone'],'【译点通】有新的文档订单，订单号：' . $model->id . '。请即时确认！' . $demand);
 		        }
                 #$this->redirect(array("path/viewOrder","orderId"=>$model->id));
             Yii::import('ext.EUserFlash');
-            $rengong = CHtml::link("等待客服MM联系我",array("path/sendEmail","type"=>"rengong","orderId"=>$model->id,"email"=>$model->email),array("target"=>"_blank"));
-            $auto = CHtml::link("等待客服MM联系我",array("path/sendEmail","type"=>"auto","orderId"=>$model->id,"email"=>$model->email),array("target"=>"_blank"));
-            EUserFlash::setSuccessMessage('<h3>文档提交成功，您可以选择：</h3><p style="padding: 10px;">' . $rengong . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $auto . '</p><p style="padding: 5px;font-size: 75%;">1、自助下单成交更快捷，且价格和客服报价一致。<br />2、若您的文档需要加急翻译或有排版等特殊要求，建议选择客服联系。<br />3、客服的工作时间为周一至周日：9点-12点，13点-18点，该时间段外，强烈建议选择自助下单。</p>');
+            //$rengong = CHtml::link("等待客服MM联系我",array("path/sendEmail","type"=>"rengong","orderId"=>$model->id,"email"=>$model->email),array("target"=>"_blank"));
+            $rengong = Yii::app()->createUrl("path/sendEmail",array("type"=>"rengong","orderId"=>$model->id,"email"=>$model->email));
+            //$auto = CHtml::link("请选择自动报价",array("path/sendEmail","type"=>"auto","orderId"=>$model->id,"email"=>$model->email),array("target"=>"_blank"));
+            //EUserFlash::setSuccessMessage('<h3>文档提交成功，您可以选择：</h3><p style="padding: 10px;">' . $rengong . '</p><p style="padding: 5px;font-size: 75%;">1、自助下单成交更快捷，且价格和客服报价一致。<br />2、若您的文档需要加急翻译或有排版等特殊要求，建议选择客服联系。<br />3、客服的工作时间为周一至周日：9点-12点，13点-18点，该时间段外，强烈建议选择自助下单。</p>');
+            EUserFlash::setSuccessMessage('<p>客户专员会在接到订单后 10 分钟内分析订单，然后电话通知您具体价格和翻译时间。请您耐心等待，谢谢！</p>
+                                            <p>有问题可致电：400-6608-163</p>
+                                            <p>或发送邮件到：fanyi@corp.youdao.com</p>
+                                            <p><a class="control-btn clog-js" data-act="redirect-file" href="' . $rengong . '" target="_blank" hidefocus="true">我知道了</a></p>
+                ');
                 $this->refresh();
             }
         }

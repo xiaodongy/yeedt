@@ -136,6 +136,7 @@ class Translate extends CActiveRecord
         parent::afterDelete();
         
         $delete_charge = Charge::model()->deleteAll('translate_id=' . $this->id);
+        $delete_comment = Comment::model()->deleteAll('translate_id=' . $this->id);
 
         if ($this->upload_file_name && file_exists(Yii::getPathOfAlias('webroot') . '/upload/' . $this->upload_file_name))
             unlink(Yii::getPathOfAlias('webroot').'/upload/' . $this->upload_file_name);
@@ -143,7 +144,7 @@ class Translate extends CActiveRecord
         if ($this->t_upload_file_name && file_exists(Yii::getPathOfAlias('webroot') . '/upload/t/' . $this->t_upload_file_name))
             unlink(Yii::getPathOfAlias('webroot').'/upload/t/' . $this->t_upload_file_name);
 
-        if ($delete_charge)
+        if ($delete_charge && $delete_comment)
             return true;
         else
             return false;

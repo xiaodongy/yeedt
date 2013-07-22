@@ -42,7 +42,7 @@ class Comment extends CActiveRecord
 			array('translate_id', 'required'),
 			array('level, create_time, translate_id', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>32),
-			array('content', 'safe'),
+			array('content, level', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, level, type, content, create_time, translate_id', 'safe', 'on'=>'search'),
@@ -88,14 +88,18 @@ class Comment extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('level',$this->level);
+		$criteria->compare('level',$this->level, true);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('translate_id',$this->translate_id);
+        #$criteria->addCondition('translate_id!=""');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'sort'=>array(
+			    'defaultOrder'=>'create_time DESC',
+            ),
 		));
 	}
 }

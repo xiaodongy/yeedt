@@ -1,0 +1,16 @@
+yii vim api
+由 Coly 在 July 18, 2013 發布 [ 分類: PHP ]
+https://github.com/mikehaertl/yii-api-vim
+
+安装
+
+下载从这里的文件，提取程序包并且移动docs/目录向您的~/.vim目录。
+
+使用
+
+没有对于此是必需的实际配置插件。 在安装它以后，您能请求在Yii选件类的帮忙象这样： :help CWebUser
+
+如果您想要使用准许按在所有关键字的)的键盘检索(您应该然后添加此线路到您的.vimrc ： autocmd BufNewFile,Bufread *.php set keywordprg="help"
+
+書籤: yii api for vimrc
+永久鏈接 | 留言數 (0) | 最後修改於 July 18, 2013)

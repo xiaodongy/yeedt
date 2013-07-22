@@ -10,7 +10,7 @@ return array(
 	'name'=>'译点通在线翻译',
     'language'=>'zh_cn',
     'timeZone'=>'Asia/Shanghai',
-    'theme'=>'2013ydt',
+    'theme'=>'2013lion8',
 
     'defaultController'=>'path',
 	// preloading 'log' component
@@ -74,6 +74,7 @@ return array(
 			//'urlSuffix' => '/',	
 		
 			'rules'=>array(
+                //path
 			    '' => 'path/index',
                 'fast' => 'path/fast',
                 'why-fast' => 'path/whyFast',
@@ -87,12 +88,18 @@ return array(
                 'login' => 'path/login',
                 'logout' => 'path/logout',
                 'reg' => 'path/reg',
+                'forgetPassword' => 'path/forgetPassword',
+                'passwordSent' => 'path/passwordSent',
+                //user
                 'panel' => 'user/panel',
 		        'referral' => 'user/referral',
                 'translateResult' => 'user/translateResult',
-        		'orderResult' => 'user/orderResult',
+                '<orderId:\d+>/orderResult'=>'user/orderResult',
+                '<orderId:\d+>/orderPay'=>'user/orderPay',
                 'chargeResult' => 'user/chargeResult',
                 'getUserInfo' => 'user/getUserInfo',
+                '<id:\d+>/user'=>'user/view',
+                //proxy
                 'panel' => 'proxy/panel',
                 'getUserInfo' => 'proxy/getUserInfo',
                 'referral' => 'proxy/referral',
